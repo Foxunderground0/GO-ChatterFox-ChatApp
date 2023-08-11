@@ -73,6 +73,7 @@ func main(){
 			new_message(string(ip), string(body), collection)
 
 			// Assuming the request body contains text data
+			fmt.Println("Recived Post")
 			fmt.Fprintf(w, "OK \n")
 		} else {
 			http.Error(w, "Only POST requests are supported", http.StatusMethodNotAllowed)
@@ -82,7 +83,7 @@ func main(){
 	http.HandleFunc("/read", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == http.MethodGet {
 			// Define the options for sorting and limiting
-			options := options.Find().SetSort(bson.D{{"time", -1}}).SetLimit(50)
+			options := options.Find().SetSort(bson.D{{"time", -1}}).SetLimit(100)
 	
 			// Create a cursor with the find options
 			cursor, err := collection.Find(ctx, bson.D{}, options)
